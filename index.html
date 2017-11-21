@@ -3,13 +3,71 @@
 
   <head>
 <!-- Global site tag (gtag.js) - Google Analytics -->
+	 <style>
+		  
+/*Slider*/
+
+
+#myCarousel .nav a small
+{
+    display: block;
+}
+#myCarousel .nav
+{
+    background: #eee;
+}
+.nav-justified > li > a
+{
+    border-radius: 0px;
+}
+.nav-pills>li[data-slide-to="0"].active a { background-color: #16a085; }
+.nav-pills>li[data-slide-to="1"].active a { background-color: #e67e22; }
+.nav-pills>li[data-slide-to="2"].active a { background-color: #2980b9; }
+.nav-pills>li[data-slide-to="3"].active a { background-color: #8e44ad; }
+
+/*Jumbotron*/
+
+.jumbotron{
+    margin-bottom:20px;
+    margin-top:20px;
+    position:center;
+   
+}
+
+.pricing {
+    text-align: center;
+}
+
+/*Page Header*/
+.page-header{
+    text-align:center;
+}
+	  </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-100603527-2"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+ $(document).ready(function () {
+    $('#myCarousel').carousel({
+        interval: 4000
+    });
 
-  gtag('config', 'UA-100603527-2');
+    var clickEvent = false;
+    $('#myCarousel').on('click', '.nav a', function () {
+        clickEvent = true;
+        $('.nav li').removeClass('active');
+        $(this).parent().addClass('active');
+    }).on('slid.bs.carousel', function (e) {
+        if (!clickEvent) {
+            var count = $('.nav').children().length - 1;
+            var current = $('.nav li.active');
+            current.removeClass('active').next().addClass('active');
+            var id = parseInt(current.data('slide-to'));
+            if (count == id) {
+                $('.nav li').first().addClass('active');
+            }
+        }
+        clickEvent = false;
+    });
+});
 </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
